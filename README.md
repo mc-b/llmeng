@@ -7,6 +7,16 @@
 * Enterprise Integration: Verbinden von LLMs, RAG (Retrieval Augmented Generation) und MCP (Model Context Protocol) mit Anwendungen und Unternehmenswissen
 * Skalierbare Automatisierung: Verstehen des Aufbaus von Multi-Agent-Systemen und deren Einsatz für komplexe Automatisierungsprozess
 
+### Deployment auf lernvirt Umgebungen
+  
+    cd lernvirt
+    helm install llmeng . -n llmeng --create-namespace -f ${HELM_VALUES_HOST} -f ../llmeng/lernvirt-values.yaml 
+    
+Deinstallation
+    
+    helm uninstall llmeng -n llmeng && kubectl delete ns llmeng
+    
+
 ### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
 ![](http://www.creativecommons.ch/wp-content/uploads/2014/03/by-nc-sa1.png)
