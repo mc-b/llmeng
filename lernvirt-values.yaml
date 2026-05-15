@@ -7,7 +7,7 @@ vm:
   cpu: 4
   memory: 12Gi
   storage: 64Gi  
-  userdata: https://raw.githubusercontent.com/mc-b/llmeng/refs/heads/v2/cloud-init-control-k3s.yaml
+  userdata: https://raw.githubusercontent.com/mc-b/llmeng/refs/heads/v2/cloud-init-control.yaml
   ports:
     - 16443
     - 32188
