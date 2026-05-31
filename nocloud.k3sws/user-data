@@ -29,6 +29,10 @@ autoinstall:
     - curtin in-target --target=/target -- touch /boot/lernvirt-installed           
 
   user-data:
+    apt:
+      primary:
+        - arches: [amd64, i386]
+          uri: http://mirror.init7.net/ubuntu  
     users:
       - default
       - name: ubuntu
