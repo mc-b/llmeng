@@ -7,6 +7,43 @@
 * Enterprise Integration: Verbinden von LLMs, RAG (Retrieval Augmented Generation) und MCP (Model Context Protocol) mit Anwendungen und Unternehmenswissen
 * Skalierbare Automatisierung: Verstehen des Aufbaus von Multi-Agent-Systemen und deren Einsatz für komplexe Automatisierungsprozess
 
+## Serverinstallation auf Bare-Metal-Hardware inkl. GPU Driver
+
+### ubuntu-....iso Image patchen
+
+**ubuntu-...iso Image downloaden**
+
+z.B. von [Ubuntu Server download](https://ubuntu.com/download/server).
+
+Abstellen, z.B. unter ~/ISO/ubuntu-24.04.4-live-server-amd64.iso
+
+    mkdir -p ~/ISO
+
+**Tools installieren**
+
+    sudo apt install -y xorriso
+    
+**Neues Autoinstall-ubuntu-24.04.4-live-server-amd64.iso bauen (Bootstruktur vom Original übernehmen)**
+
+    rm -f ubuntu-autoinstall.iso
+    
+    xorriso \
+      -indev ~/ISO/ubuntu-24.04.4-live-server-amd64.iso \
+      -outdev ubuntu-autoinstall.iso \
+      -map nocloud.k3sws /nocloud.k3sws \
+      -map boot/grub/grub.cfg /boot/grub/grub.cfg \
+      -boot_image any replay
+
+Damit bleibt BIOS/UEFI-Boot wie im Original, nur `grub.cfg` und `nocloud/` werden ersetzt bzw. hinzugefügt.
+
+**USB Stick schreiben**
+
+    sudo dd if=ubuntu-autoinstall.iso of=/dev/sda bs=4M status=progress oflag=sync
+    sync
+    sudo udisksctl power-off -b /dev/sda
+
+**ACHTUNG**: USB Stick Device `/dev/sda` erst durch `lsblk` ermitteln ansonsten wird der Harddisk überschrieben.
+
 ### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
 ![](http://www.creativecommons.ch/wp-content/uploads/2014/03/by-nc-sa1.png)
