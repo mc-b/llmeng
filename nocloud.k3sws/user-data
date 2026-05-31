@@ -62,11 +62,11 @@ autoinstall:
           git clone https://github.com/mc-b/llmeng --branch v2
         '
       - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/connectivity-init.sh | TS_HOSTNAME=llmeng bash -"     
-      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/xfce4.sh | bash -     
-      # - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vscode.sh | bash -        
-      #- curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cloud-cli.sh | bash -        
-      #- curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -
-      #- curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/wake-on-lan.sh | bash -  
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/xfce4.sh | DEFAULT_TARGET=graphical bash -     
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vscode.sh | bash -        
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cloud-cli.sh | bash -        
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/wake-on-lan.sh | bash -  
       - |
         runuser -l ubuntu -c '  
           git clone https://gitlab.com/ch-mc-b/autoshop-ms/infra/iiot.git
