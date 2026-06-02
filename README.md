@@ -6,20 +6,8 @@
 * Modell- & Infrastruktur-Strategie: Differenzieren zwischen Proprietary-, Open-Weight- und Open-Source-Modellen 
 * Enterprise Integration: Verbinden von LLMs, RAG (Retrieval Augmented Generation) und MCP (Model Context Protocol) mit Anwendungen und Unternehmenswissen
 * Skalierbare Automatisierung: Verstehen des Aufbaus von Multi-Agent-Systemen und deren Einsatz für komplexe Automatisierungsprozess
-
-### Deployment auf lernvirt Umgebungen
-  
-    cd lernvirt
-    helm install llmeng . -n llmeng --create-namespace -f ${HELM_VALUES_HOST} -f ../llmeng/lernvirt-values.yaml 
-    
-Deinstallation
-    
-    helm uninstall llmeng -n llmeng && kubectl delete ns llmeng
     
 ## Serverinstallation auf Bare-Metal-Hardware inkl. GPU Driver
-
-
-### ubuntu-....iso Image patchen
 
 **ubuntu-...iso Image downloaden**
 
@@ -63,6 +51,15 @@ Damit bleibt BIOS/UEFI-Boot wie im Original, nur `grub.cfg` und `nocloud/` werde
 
     sudo rm /boot/lernvirt-installed
     sudo reboot
+
+### Deployment auf lernvirt Umgebungen
+  
+    cd lernvirt
+    helm install llmeng . -n llmeng --create-namespace -f ${HELM_VALUES_HOST} -f ../llmeng/lernvirt-values.yaml 
+    
+Deinstallation
+    
+    helm uninstall llmeng -n llmeng && kubectl delete ns llmeng    
 
 ### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
