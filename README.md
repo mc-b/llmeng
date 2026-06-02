@@ -18,6 +18,7 @@ Deinstallation
     
 ## Serverinstallation auf Bare-Metal-Hardware inkl. GPU Driver
 
+
 ### ubuntu-....iso Image patchen
 
 **ubuntu-...iso Image downloaden**
@@ -27,12 +28,17 @@ z.B. von [Ubuntu Server download](https://ubuntu.com/download/server).
 Abstellen, z.B. unter ~/ISO/ubuntu-24.04.4-live-server-amd64.iso
 
     mkdir -p ~/ISO
+    cd ~/ISO
+    wget https://releases.ubuntu.com/24.04.4/ubuntu-24.04.4-live-server-amd64.iso
 
 **Tools installieren**
 
     sudo apt install -y xorriso
     
 **Neues Autoinstall-ubuntu-24.04.4-live-server-amd64.iso bauen (Bootstruktur vom Original übernehmen)**
+
+    git clone https://github.com/mc-b/llmeng
+    cd llmeng
 
     rm -f ubuntu-autoinstall.iso
     
@@ -50,8 +56,13 @@ Damit bleibt BIOS/UEFI-Boot wie im Original, nur `grub.cfg` und `nocloud/` werde
     sudo dd if=ubuntu-autoinstall.iso of=/dev/sda bs=4M status=progress oflag=sync
     sync
     sudo udisksctl power-off -b /dev/sda
-
+    
 **ACHTUNG**: USB Stick Device `/dev/sda` erst durch `lsblk` ermitteln ansonsten wird der Harddisk überschrieben.
+
+**Neu Installation erzwingen**
+
+    sudo rm /boot/lernvirt-installed
+    sudo reboot
 
 ### Lizenz (Attribution-NonCommercial-ShareAlike 4.0 International)
 
