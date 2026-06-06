@@ -65,6 +65,8 @@ autoinstall:
           git clone https://github.com/mc-b/platen --branch v2 &&
           git clone https://github.com/mc-b/llmeng --branch v2
         '
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cert-manager.sh | bash -"    
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/opentelemetry.sh | bash -"    
       - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/connectivity-init.sh | TS_HOSTNAME=llmeng bash -"     
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/xfce4.sh | DEFAULT_TARGET=graphical bash -     
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/vscode.sh | bash -        
