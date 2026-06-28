@@ -45,4 +45,5 @@ runcmd:
       kubectl apply -f m5stack/sensors -f m5stack/actors -f m5stack/devices
     '  
   - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k8stools.sh | bash -
+  - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/lmstudio.sh | bash -"    
   - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/local-llm.sh | bash -"         
