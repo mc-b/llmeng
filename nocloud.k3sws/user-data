@@ -102,5 +102,6 @@ autoinstall:
           kubectl apply -f crd &&
           kubectl apply -f m5stack/sensors -f m5stack/actors -f m5stack/devices
         '  
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/lmstudio.sh | bash -"            
       - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/local-llm.sh | bash -"
           
