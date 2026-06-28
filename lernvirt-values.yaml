@@ -6,7 +6,7 @@ vm:
   count: 1
   cpu: 4
   memory: 12Gi
-  storage: 64Gi  
+  storage: 96Gi  
   userdata: https://raw.githubusercontent.com/mc-b/llmeng/refs/heads/v2/cloud-init-control.yaml
   ports:
     - 16443
