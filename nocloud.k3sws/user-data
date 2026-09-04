@@ -10,7 +10,7 @@ autoinstall:
   timezone: Europe/Zurich
 
   identity:
-    hostname: k3sws
+    hostname: llmengws
     username: ubuntu
     password: "$6$jr7iRqqy6HZabA/3$Ix1PUMpe5IUlJ8pyNI8jp7b/4GvFFCBSFVqQUUYQEaGbElNsrCrqCHdEDKmegLQbEOMET0n.Dog4vPfuBHmQp0"
 
@@ -26,8 +26,25 @@ autoinstall:
       
   # Diese Befehle laufen NOCH VOR dem Reboot am Ende der Installation
   late-commands:
-    - curtin in-target --target=/target -- touch /boot/lernvirt-installed           
-
+    - |
+      curtin in-target --target=/target -- bash -c '
+        set -eux
+        lspci -nn | grep -qi NVIDIA || exit 0
+        apt-get update
+        DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends ca-certificates curl gnupg2 build-essential dkms linux-headers-generic
+        rm -f /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey |
+          gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+        curl -sL https://nvidia.github.io/libnvidia-container/stable/deb/nvidia-container-toolkit.list |
+          sed "s#deb https://#deb [signed-by=/usr/share/keyrings/nvidia-container-toolkit-keyring.gpg] https://#g" >/etc/apt/sources.list.d/nvidia-container-toolkit.list
+        apt-get update
+        DEBIAN_FRONTEND=noninteractive apt-get install -y nvidia-driver-610 nvidia-utils-610 nvidia-container-toolkit
+        dpkg --configure -a
+        dkms autoinstall
+        dkms status | grep -qE "nvidia/.+installed"
+      '
+    - curtin in-target --target=/target -- touch /boot/lernvirt-installed
+      
   user-data:
     apt:
       primary:
@@ -50,9 +67,10 @@ autoinstall:
     runcmd:
       - echo "ubuntu:digicomp" | chpasswd
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/issue-patch.sh | bash -
-      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash -  
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash - 
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/storage-patch.sh | bash -  
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/docker.sh | bash -
+      - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/containers.sh | bash -      
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k3scontrol.sh | bash -
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/k3scontroladdons.sh | bash - 
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/refs/heads/main/services/nvidia-gpu-operator.sh | bash -
@@ -63,7 +81,9 @@ autoinstall:
           git clone https://github.com/mc-b/duk --branch v2 &&
           git clone https://github.com/mc-b/k8sd2o --branch v2 &&
           git clone https://github.com/mc-b/platen --branch v2 &&
-          git clone https://github.com/mc-b/llmeng --branch v2
+          git clone https://github.com/mc-b/llmeng --branch v2 &&
+          git clone https://github.com/mc-b/terra &&       
+          git clone https://github.com/mc-b/lernvirt            
         '
       - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/cert-manager.sh | bash -"    
       - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/opentelemetry.sh | bash -"    
@@ -80,5 +100,6 @@ autoinstall:
           kubectl apply -f crd &&
           kubectl apply -f m5stack/sensors -f m5stack/actors -f m5stack/devices
         '  
+      - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/lmstudio.sh | bash -"            
       - runuser -l ubuntu -c "curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/local-llm.sh | bash -"
           
