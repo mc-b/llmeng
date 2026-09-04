@@ -13,6 +13,16 @@ autoinstall:
     hostname: llmengws
     username: ubuntu
     password: "$6$jr7iRqqy6HZabA/3$Ix1PUMpe5IUlJ8pyNI8jp7b/4GvFFCBSFVqQUUYQEaGbElNsrCrqCHdEDKmegLQbEOMET0n.Dog4vPfuBHmQp0"
+    
+  network:
+    version: 2
+    renderer: networkd
+    ethernets:
+      ethernet:
+        match:
+          name: "en*"
+        dhcp4: true
+        dhcp-identifier: mac    
 
   ssh:
     install-server: true
