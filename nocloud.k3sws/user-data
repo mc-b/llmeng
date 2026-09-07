@@ -36,14 +36,7 @@ autoinstall:
       
   # Diese Befehle laufen NOCH VOR dem Reboot am Ende der Installation
   late-commands:
-    - |
-      curtin in-target --target=/target -- bash -c '
-        set -x
-        lspci -nn | grep -qi NVIDIA || exit 0
-        apt-get update -y
-        DEBIAN_FRONTEND=noninteractive apt-get install -y nvidia-driver-610 nvidia-utils-610 
-      '
-    - curtin in-target --target=/target -- touch /boot/lernvirt-installed
+    - curtin in-target --target=/target -- touch /boot/lernvirt-installed 
       
   user-data:
     apt:
