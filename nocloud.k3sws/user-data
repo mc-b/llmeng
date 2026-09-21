@@ -66,7 +66,7 @@ autoinstall:
       - net-tools
       - nmap      
     runcmd:
-      - echo "ubuntu:digicomp" | chpasswd
+      - echo "ubuntu:insecure" | chpasswd
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/issue-patch.sh | bash -
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/nfsshare.sh | bash - 
       - curl -sfL https://raw.githubusercontent.com/mc-b/lerncloud/main/services/storage-patch.sh | bash -  
