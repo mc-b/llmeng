@@ -33,7 +33,7 @@ Abstellen, z.B. unter ~/ISO/ubuntu-24.04.4-live-server-amd64.iso
     xorriso \
       -indev ~/ISO/ubuntu-24.04.4-live-server-amd64.iso \
       -outdev ubuntu-autoinstall.iso \
-      -map nocloud.k3sws /nocloud.k3sws \
+      -map nocloud.llmeng /nocloud.llmeng \
       -map boot/grub/grub.cfg /boot/grub/grub.cfg \
       -boot_image any replay
 
