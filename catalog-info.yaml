@@ -1,0 +1,29 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: llmeng
+  namespace: mc-b
+  description: 'Kurs: llmeng - LLM Engineering &amp; AIOps – Übersicht und Einsatz'
+  tags:
+  - containers
+  - docker
+  - kubernetes
+  - microk8s
+  - podman
+  - cloud-native
+  - digicomp
+  - education
+  links:
+  - url: https://github.com/mc-b/llmeng
+    title: Repository
+    icon: github
+  annotations:
+    github.com/project-slug: mc-b/llmeng
+    backstage.io/source-location: url:https://github.com/mc-b/llmeng
+    # backstage.io/techdocs-ref: url:https://github.com/mc-b/llmeng
+spec:
+  type: website
+  lifecycle: production
+  owner: group:mc-b/mc-b
+  dependsOn:
+  - component:mc-b/lerncloud 
