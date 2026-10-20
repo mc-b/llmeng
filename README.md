@@ -49,8 +49,8 @@ Damit bleibt BIOS/UEFI-Boot wie im Original, nur `grub.cfg` und `nocloud/` werde
 
 **Neu Installation erzwingen**
 
-    sudo rm /boot/lernvirt-installed
-    sudo reboot
+    sudo rm -f /boot/lernvirt-installed
+    sudo systemctl reboot --force --force
 
 ### Deployment auf lernvirt Umgebungen
   
